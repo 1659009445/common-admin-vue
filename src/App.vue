@@ -1,32 +1,42 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 
+<script>
+  export default {
+    name: "App",
+    watch: {
+      $route: {
+        handler (to,from){
+          if(to.path !== '/login'){
+            let tab = {
+              name: to.name,
+              title: to.name
+            }
+            this.$store.commit('addTab',tab)
+            this.$store.commit('cleanRouteList')
+            this.$store.commit('setRouteList',to)
+          }
+        },
+        immediate: true
+      }
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+html, body, #app {
+  font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
 }
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+a{
+  text-decoration: none;
 }
 </style>
