@@ -27,3 +27,9 @@ export function download(res) {
     document.body.removeChild(link)
 }
 
+export function upload() {
+    return request({
+        url: 'http://localhost:8088/file/upload',
+        method: 'get',
+    })
+}

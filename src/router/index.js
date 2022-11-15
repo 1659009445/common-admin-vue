@@ -69,6 +69,12 @@ const routes = [
         meta: {title: 'test', icon: ''},
         component: () => import('../views/sys/info/Operate')
       },
+      {
+        path: '/sys/info/file',
+        name: '文件管理',
+        meta: {title: 'file', icon: ''},
+        component: () => import('../views/sys/info/File')
+      },
     ]
   },
   {
