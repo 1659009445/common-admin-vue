@@ -247,3 +247,5 @@ export function updatePasswordByAdmin(id){
         method: 'post',
     })
 }
+
+

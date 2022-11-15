@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import menus from './modules/menus'
 import tabs from './modules/tabs'
+import download from './modules/download'
 
 Vue.use(Vuex)
 
@@ -42,5 +43,6 @@ export default new Vuex.Store({
   modules: {
     menus,
     tabs,
+    download
   }
 })

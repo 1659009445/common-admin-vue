@@ -28,6 +28,9 @@
           </template>
         </el-popconfirm>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handleOutput">导出</el-button>
+      </el-form-item>
     </el-form>
 
     <el-table :data="tableData" style="width: 100%;margin-bottom: 20px;"
@@ -164,9 +167,10 @@ import {
   getUserList,
   insertUser,
   updatePasswordByAdmin,
-  updateUser, updateUserRole
+  updateUser, updateUserRole,
 } from "@/api/sys";
 import {logout} from "@/api/authentication";
+import {download ,userDownload} from "@/api/download";
 
 export default {
   name: "SysUser",
@@ -285,6 +289,15 @@ export default {
               this.$router.push('/login').then(r => {})
           }
       })
+    },
+    handleOutput() {
+      //导出为excel
+      userDownload().then((res) => {
+        download(res)
+      })
+    },
+    handleOrigin(){
+
     },
     resetForm() {
       //重置表单

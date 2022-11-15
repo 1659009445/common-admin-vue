@@ -16,6 +16,10 @@ request.interceptors.request.use(config => {
 
 request.interceptors.response.use(response => {
     const res = response.data
+    const headers = response.headers
+    if (headers['content-type'] === 'application/octet-stream;charset=utf-8') {
+        return response.data
+    }
     if (res.code === '401') {
         Element.Message({
             message: res.message || '页面长时间未使用，请重新登录',
@@ -25,20 +29,12 @@ request.interceptors.response.use(response => {
         this.$store.commit('clearIndexStore')
         this.$router.push('/login').then(r => {})
         return Promise.reject(new Error(res.message || '页面长时间未使用，请重新登录'))
-        // logout().then(res => {
-        //     if(res.data.code === '200'){
-        //         this.$store.commit('clearIndexStore')
-        //         this.$router.push('/login').then(r => {})
-        //     }
-        // })
     } else if (res.code !== '200') {
         Element.Message({
             message: res.message || 'Error',
             type: 'error',
             duration: 5000
         })
-        this.$store.commit('clearIndexStore')
-        this.$router.push('/login').then(r => {})
         return Promise.reject(new Error(res.message || 'Error'))
     } else {
         return response
